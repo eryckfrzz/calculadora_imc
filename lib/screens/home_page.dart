@@ -1,4 +1,4 @@
-import 'package:calculadora_imc/features/generos.dart';
+import 'package:calculadora_imc/features/logic/imc_calc.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,11 +11,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double peso = 0.0;
   double altura = 0.0;
-  Generos genero = Generos.Feminino;
+  String nome = '';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Center(
@@ -30,14 +31,36 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.green,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(10.0),
           child: Card(
             elevation: 5,
-            margin: const EdgeInsets.all(20),
             color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      label: Text(
+                        'Digite seu nome:',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    onChanged: (text) {
+                      nome = text;
+                    },
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: TextField(
@@ -57,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onChanged: (text) {
-                      peso = text as double;
+                      peso = double.parse(text);
                     },
                   ),
                 ),
@@ -78,55 +101,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onChanged: (text) {
-                      altura = text as double;
+                      altura = double.parse(text);
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Masculino',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Radio(
-                      value: Generos.Masculino,
-                      groupValue: genero,
-                      onChanged: (generoSelecionado) {
-                        setState(
-                          () {
-                            genero = generoSelecionado!;
-                          },
-                        );
-                      },
-                      activeColor: Colors.green,
-                    ),
-                    const Text('Feminino', style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),),
-                    Radio(
-                      value: Generos.Feminino,
-                      groupValue: genero,
-                      onChanged: (generoSelecionado) {
-                        setState(
-                          () {
-                            genero = generoSelecionado!;
-                          },
-                        );
-                      },
-                      activeColor: Colors.green,
-                    ),
-                  ],
-                ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/result',
+                      arguments: Informacoes(peso, altura, nome),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
-                    padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
+                    padding: const EdgeInsets.fromLTRB(100, 20, 100, 20),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Calcular',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
