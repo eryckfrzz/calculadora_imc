@@ -1,3 +1,4 @@
+import 'package:calculadora_imc/features/generos.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double peso = 0.0;
   double altura = 0.0;
+  Generos genero = Generos.Feminino;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class _HomePageState extends State<HomePage> {
               'Calculadora IMC',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
@@ -36,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: TextField(
                     decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -48,7 +51,8 @@ class _HomePageState extends State<HomePage> {
                       label: Text(
                         'Digite seu peso:',
                         style: TextStyle(
-                          color: Colors.green,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -58,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: TextField(
                     decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -69,14 +73,67 @@ class _HomePageState extends State<HomePage> {
                       ),
                       label: Text(
                         'Digite sua altura:',
-                        style: TextStyle(color: Colors.green),
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ),
                     onChanged: (text) {
                       altura = text as double;
                     },
                   ),
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Masculino',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Radio(
+                      value: Generos.Masculino,
+                      groupValue: genero,
+                      onChanged: (generoSelecionado) {
+                        setState(
+                          () {
+                            genero = generoSelecionado!;
+                          },
+                        );
+                      },
+                      activeColor: Colors.green,
+                    ),
+                    const Text('Feminino', style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    Radio(
+                      value: Generos.Feminino,
+                      groupValue: genero,
+                      onChanged: (generoSelecionado) {
+                        setState(
+                          () {
+                            genero = generoSelecionado!;
+                          },
+                        );
+                      },
+                      activeColor: Colors.green,
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
+                  ),
+                  child: Text(
+                    'Calcular',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
