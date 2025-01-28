@@ -13,7 +13,8 @@ Este projeto é uma calculadora simples de Índice de Massa Corporal (IMC), dese
 1. Clone o repositório:
    
    git bash
+   
    git clone https://github.com/eryckfrzz/calculadora_imc
 
-2. Ao clonar, preencha suas informações de nome, peso e altura, após isso aperte em calcular e sua classificação de IMC será dita.
+3. Ao clonar, preencha suas informações de nome, peso e altura, após isso aperte em calcular e sua classificação de IMC será dita.
 
